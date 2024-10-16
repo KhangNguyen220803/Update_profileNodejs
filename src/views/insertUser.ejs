@@ -1,0 +1,54 @@
+<div class="container mt-5">
+    <h1>Create New User</h1>
+    <form action="/insert-new-user" method="POST">
+        <table class="table">
+            <tbody class="table-group-divider">
+                <tr>
+                    <th scope="col">Username</th>
+                    <td>
+                        <input type="text" name="username" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Password</th>
+                    <td>
+                        <input type="text" name="password" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Fullname</th>
+                    <td>
+                        <input type="text" name="fullname" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Address</th>
+                    <td>
+                        <input type="text" name="address" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Sex</th>
+                    <td>
+                        <select name="sex" required>
+                            <option value="Nam">Male</option>
+                            <option value="Nữ">Female</option>
+                            <option value="Khác">Other</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Email</th>
+                    <td>
+                        <input type="email" name="email" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="submit" class="btn btn-primary">Create User</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
