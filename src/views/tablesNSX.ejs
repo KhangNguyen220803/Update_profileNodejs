@@ -1,0 +1,47 @@
+<!-- bảng nhà sản xuất -->
+<div id="table_nsx" style="display: flex; justify-content: center; margin-top: 20px;">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Mã nhà sản xuất</th>
+                <th scope="col">Tên nhà sản xuất</th>
+                <th scope="col">Loại sản phẩm</th>
+                <th style="text-align: center;" scope="col">Xem</th>
+                <th style="text-align: center;" scope="col">Sửa</th>
+                <th style="text-align: center;" scope="col">Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(data.listNSX){ %>
+                <% for(let i=0; i < data.listNSX.length; i++) { %>
+                    <tr>
+                        <th scope="row">
+                            <%= data.listNSX[i].mansx %>
+                        </th>
+                        <td>
+                            <%= data.listNSX[i].tennsx %>
+                        </td>
+                        <td>
+                            <%= data.listNSX[i].loaisp %>
+                        </td>
+                        <td style="text-align: center;"><a href="/detailNSX/<%= data.listNSX[i].mansx %>"
+                                class="btn btn-light">Xem</a></td>
+                        <td style="text-align: center;"><a href="/editNSX/<%= data.listNSX[i].mansx %>"
+                                class="btn btn-primary">Sửa</a></td>
+                        <td style="text-align: center;"><button class="btn btn-danger"
+                                onclick="deleteNSX('<%= data.listNSX[i].mansx %>')">Xóa</button></td>
+                    </tr>
+                    <% } %>
+                        <% } %>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function deleteNSX(id) {
+        fetch(`/deleteNSX/${id}`, {
+            method: 'DELETE'
+        })
+        window.location.href = '/listNSX';
+    }
+</script>

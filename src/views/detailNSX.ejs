@@ -1,0 +1,23 @@
+<!-- bảng nhà sản xuất -->
+<div id="table_nsx" style="display: flex; justify-content: center; margin-top: 20px;">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Mã nhà sản xuất</th>
+                <th scope="col">Tên nhà sản xuất</th>
+                <th scope="col">Loại sản phẩm</th>
+                <th scope="col">Email nhà sản xuất</th>
+                <th scope="col">Địa chỉ nhà sản xuất</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row"><%= data.rows.mansx %></th>
+                <td><%= data.rows.tennsx %></td>
+                <td><%= data.rows.loaisp %></td>
+                <td><%= data.rows.emailnsx %></td>
+                <td><%= data.rows.diachinsx %></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,22 @@
+<!-- loại sản phẩm -->
+<div id="formLoaiSP"
+    style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; margin-top: 100px;">
+    <form class="border bg-white p-5 w-50 " method="post" action="/updateProductType/<%= data.rows.maloai %>" style="position: relative; top: 200px; height: 350px;">  
+        <div style="display: flex; justify-content: center;">
+            <span style="font-weight: bold;"> Sửa Loại Sản Phẩm</span>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Mã loại sản phẩm</label>
+            <p class="form-control" >
+               <%= data.rows.maloai %></p>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Tên loại sản phẩm</label>
+            <input type="text" class="form-control"
+                placeholder="Tên loại sản phẩm" name="tenloai" value="<%= data.rows.tenloai %>">
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <button type="submit" class="btn btn-primary" style="width: 80px;">Lưu</button>
+        </div>
+    </form>
+</div>

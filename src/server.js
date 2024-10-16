@@ -14,20 +14,14 @@ const app = express();
 dotenv.config();
 
 const port = process.env.PORT;
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 configViewEngine(app);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 initWebRoute(app);
 
-app.get('/', (req, res) => {
-    res.render('home');
-});
-
-app.get('/about', (req, res) => {
-    res.render('about');
-});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

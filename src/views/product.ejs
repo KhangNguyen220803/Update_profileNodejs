@@ -1,0 +1,51 @@
+<!-- bảng sản phẩm -->
+<div id="table_sp" style="display: flex; justify-content: center; margin-top: 20px;">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Mã sản phẩm</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Thông tin chi tiết</th>
+                <th scope="col">Số lượng sản phẩm</th>
+                <th style="text-align: center;" scope="col">Xem</th>
+                <th style="text-align: center;" scope="col">Sửa</th>
+                <th style="text-align: center;" scope="col">Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(data.product){ %>
+                <% for(let i=0; i < data.product.length; i++) { %>
+                    <tr>
+                        <th scope="row">
+                            <%= data.product[i].masp %>
+                        </th>
+                        <td>
+                            <%= data.product[i].tensp %>
+                        </td>
+                        <td>
+                            <%= data.product[i].thongtinchitiet %>
+                        </td>
+                        <td>
+                            <%= data.product[i].soluongsp %>
+                        </td>
+                        <td style="text-align: center;"><a href="/detailProduct/<%= data.product[i].masp %>"
+                                class="btn btn-light">Xem</a></td>
+                        <td style="text-align: center;"><a href="/editProduct/<%= data.product[i].masp %>"
+                                class="btn btn-primary">Sửa</a></td>
+                        <td style="text-align: center;"><button class="btn btn-danger"
+                                onclick="deleteProduct('<%= data.product[i].masp %>')">Xóa</button></td>
+                    </tr>
+                    <% } %>
+                        <% } %>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function deleteProduct(id) {
+        fetch(`/deleteProduct/${id}`, {
+            method: 'DELETE'
+        })
+        window.location.href = '/listProduct';
+    }
+</script>

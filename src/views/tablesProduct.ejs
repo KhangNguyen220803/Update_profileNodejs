@@ -1,8 +1,6 @@
-
 <!-- bảng loại sản phẩm -->
+<div id="table_loai" style="display: flex; justify-content: center; margin-top: 20px;">
 
-<div id="table_loai" style="display: none; justify-content: center; margin-top: 20px;">
-    
     <table class="table table-sm">
         <thead>
             <tr>
@@ -14,122 +12,32 @@
             </tr>
         </thead>
         <tbody>
-            <!-- <% for(let i = 0; i < data.rows.length; i++) { %> -->
-            <tr>
-                <th scope="row"><%= data.rows[0].maloai %></th>
-                <td><%= data.rows[0].tenloai %></td>
-                <td style="text-align: center;" ><button type="button" class="btn btn-light">Xem</button></td>
-                <td style="text-align: center;" ><button type="button" class="btn btn-primary">Sửa</button></td>
-                <td style="text-align: center;" ><button type="button" class="btn btn-danger">Xóa</button></td>
-            </tr>
-            <!-- <% } %> -->
+            <% if(data.rows){ %>
+                <% for(let i=0; i < data.rows.length; i++) { %>
+                    <tr>
+                        <th scope="row">
+                            <%= data.rows[i].maloai %>
+                        </th>
+                        <td>
+                            <%= data.rows[i].tenloai %>
+                        </td>
+                        <td style="text-align: center;"><a href="/detailTProduct/<%= data.rows[i].maloai %>"
+                                class="btn btn-light">Xem</a></td>
+                        <td style="text-align: center;"><a href="/editProductType/<%= data.rows[i].maloai %>"
+                                class="btn btn-primary">Sửa</a></td>
+                        <td style="text-align: center;"><button class="btn btn-danger"
+                                onclick="deleteType('<%= data.rows[i].maloai %>')">Xóa</button></td>
+                    </tr>
+                    <% } %>
+                        <% } %>
         </tbody>
     </table>
 </div>
-
-<!-- bảng nhà sản xuất -->
-
-<div id="table_nsx" style="display: none; justify-content: center; margin-top: 20px;">
-    <table class="table table-sm">
-        <thead>
-            <tr>
-                <th scope="col">Mã nhà sản xuất</th>
-                <th scope="col">Tên nhà sản xuất</th>
-                <th scope="col">Loại sản phẩm</th>
-                <!-- <th scope="col">Email nhà sản xuất</th>
-                <th scope="col">Địa chỉ nhà sản xuất</th> -->
-                <th style="text-align: center;" scope="col">Xem</th>
-                <th style="text-align: center;" scope="col">Sửa</th>
-                <th style="text-align: center;" scope="col">Xóa</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Mark</td>
-                <!-- <td>Mark</td>
-                <td>Mark</td> -->
-                <td style="text-align: center;" ><button type="button" class="btn btn-light">Xem</button></td>
-                <td style="text-align: center;" ><button type="button" class="btn btn-primary">Sửa</button></td>
-                <td style="text-align: center;" ><button type="button" class="btn btn-danger">Xóa</button></td>
-            </tr>
-
-        </tbody>
-    </table>
-</div>
-
-<!-- bảng sản phẩm -->
-
-<div id="table_sp" style="display: flex; justify-content: center; margin-top: 20px;">
-    <table class="table table-sm">
-        <thead>
-            <tr>
-                <th scope="col">Mã sản phẩm</th>
-                <th scope="col">Tên sản phẩm</th>
-                <th scope="col">Thông tin chi tiết</th>
-                <th scope="col">Số lượng sản phẩm</th>
-                <th scope="col">Hình ảnh</th>
-                <!-- <th scope="col">Mã loại</th>
-                <th scope="col">Mã nhà sản xuất</th> -->
-                <th style="text-align: center;" scope="col">Xem</th>
-                <th style="text-align: center;" scope="col">Sửa</th>
-                <th style="text-align: center;" scope="col">Xóa</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <!-- <td>Mark</td>
-                <td>Mark</td> -->
-                <td style="text-align: center;" ><button type="button" class="btn btn-light">Xem</button></td>
-                <td style="text-align: center;" ><button type="button" class="btn btn-primary">Sửa</button></td>
-                <td style="text-align: center;" ><button type="button" class="btn btn-danger">Xóa</button></td>
-            </tr>
-
-        </tbody>
-    </table>
-</div>
-
 <script>
-    // Select all buttons and forms
-    const btnDsLoaiSP = document.getElementById('btnDsLoai');
-    const btnDsNSX = document.getElementById('btnDsNSX');
-    const btnDsSP = document.getElementById('btnDsSP');
-
-    const tableLoaiSP = document.getElementById('table_loai');
-    const tableNSX = document.getElementById('table_nsx');
-    const tableSP = document.getElementById('table_sp');
-  
-
-
-    // Add event listeners for buttons
-    btnDsLoaiSP.addEventListener('click', function () {
-
-        tableLoaiSP.style.display = 'flex'; 
-        tableNSX.style.display = 'none'; 
-
-        tableSP.style.display = 'none';
-
-    });
-
-    btnDsNSX.addEventListener('click', function () {
-    
-        tableNSX.style.display = 'flex'; 
-        tableLoaiSP.style.display = 'none';
-        tableSP.style.display = 'none';
-
-    });
-
-    btnDsSP.addEventListener('click', function () {
-        tableLoaiSP.style.display = 'none';
-        tableNSX.style.display = 'none'; 
-   
-        tableSP.style.display = 'flex';  
-    });
-
+    function deleteType(id) {
+        fetch(`/deleteType/${id}`, {
+            method: 'DELETE'
+        })
+        window.location.href = '/listTProduct';
+    }
 </script>

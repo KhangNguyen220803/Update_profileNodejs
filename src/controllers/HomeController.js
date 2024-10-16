@@ -1,5 +1,8 @@
 import express from "express";
-const getHomePage = (req, res) => {
-    return res.render("home", { data: { title: 'Home page', page: 'main'} })
+import productsModel from "../services/productsModel.js"
+
+const getHomePage = async (req, res) => {
+    let productsTypeLists = await productsModel.getAllProductType();
+    return res.render("home", { data: { title: 'Home page', page: 'main', rows: productsTypeLists} })
 }
 export default getHomePage

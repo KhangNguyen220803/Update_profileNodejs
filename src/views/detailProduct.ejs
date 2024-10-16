@@ -1,0 +1,27 @@
+<!-- bảng sản phẩm -->
+<div id="table_sp" style="display: flex; justify-content: center; margin-top: 20px;">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Mã sản phẩm</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Thông tin chi tiết</th>
+                <th scope="col">Số lượng sản phẩm</th>
+                <th scope="col">Hình ảnh</th>
+                <th scope="col">Mã loại</th>
+                <th scope="col">Mã nhà sản xuất</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row"><%= data.rows.masp %></th>
+                <td><%= data.rows.tensp %></td>
+                <td><%= data.rows.thongtinchitiet %></td>
+                <td><%= data.rows.soluongsp %></td>
+                <td><img src="/uploads/<%= data.rows.hinhanh %>" alt="<%= data.rows.hinhanh %>"></td>
+                <td><%= data.rows.maloai %></td>
+                <td><%= data.rows.mansx %></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
