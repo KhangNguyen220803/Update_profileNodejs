@@ -5,6 +5,8 @@ import initWebRoute from './route/webRoute.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
+import session from 'express-session'
+
 
 // Lấy đường dẫn của tệp hiện tại
 const __filename = fileURLToPath(import.meta.url);
@@ -14,6 +16,12 @@ const app = express();
 dotenv.config();
 
 const port = process.env.PORT;
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+    }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 configViewEngine(app);
