@@ -33,6 +33,7 @@ const initWebRoute = (app) => {
 
     router.get('/login', user.loginAdmin)
     router.post('/login', user.getAdmin)
+    router.get('/logout', user.logout);
 
     return app.use('/', router)
 }
