@@ -5,7 +5,9 @@ import initWebRoute from './route/webRoute.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
+import RedisStore from "connect-redis"
 import session from 'express-session'
+import {createClient} from "redis"
 
 
 // Lấy đường dẫn của tệp hiện tại
@@ -16,12 +18,25 @@ const app = express();
 dotenv.config();
 
 const port = process.env.PORT;
+
+// Initialize client.
+let redisClient = createClient()
+redisClient.connect().catch(console.error)
+
+// Initialize store.
+let redisStore = new RedisStore({
+client: redisClient,
+prefix: "myapp:",
+})
+
 app.use(session({
-    secret: 'keyboard cat',
+    store: redisStore,
+    secret: 'cat',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
-    }))
+}))
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 configViewEngine(app);
