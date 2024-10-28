@@ -3,6 +3,7 @@ import productsModel from "../services/productsModel.js"
 
 const getHomePage = async (req, res) => {
     let productsTypeLists = await productsModel.getAllProductType();
-    return res.render("home", { data: { title: 'Home page', page: 'main', rows: productsTypeLists} })
+    let NSXLists = await productsModel.getAllNSX();
+    return res.render("home", { data: { title: 'Home page', page: 'main', listNSX: NSXLists, rows: productsTypeLists} })
 }
 export default getHomePage

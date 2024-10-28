@@ -76,6 +76,11 @@ const getAllProduct = async (req, res) => {
     let productsTypeLists = await productsModel.getAllProductType();
     res.render('home', { data: { title: 'product', page: 'product', product: Product, listNSX: NSXLists, rows: productsTypeLists } });
 }
+const getAPIAllProduct = async (req, res) => {
+    let Product = await productsModel.getAllProduct();
+
+    return res.status(200).json({ product: Product});
+}
 const insertProducts = async (req, res) => {
     let { masp, tensp, thongtinchitiet, soluongsp, maloai, mansx } = req.body;
     let hinhanh = req.file ? req.file.filename : null;
@@ -109,4 +114,4 @@ const deleteProduct = async (req, res) => {
     await productsModel.deleteProduct(id)
 }
 
-export default {getAllProductType, insertTProducts, editProductType, updateTProduct, deleteTProduct, detailProductType, insertNSX, editNSX, updateNSX, getAllNSX, detailNSX, deleteNSX, insertProducts, getAllProduct, updateProduct, editProduct, detailProduct, deleteProduct}
+export default {getAllProductType, getAPIAllProduct, insertTProducts, editProductType, updateTProduct, deleteTProduct, detailProductType, insertNSX, editNSX, updateNSX, getAllNSX, detailNSX, deleteNSX, insertProducts, getAllProduct, updateProduct, editProduct, detailProduct, deleteProduct}

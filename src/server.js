@@ -8,7 +8,8 @@ import bodyParser from 'body-parser';
 import RedisStore from "connect-redis"
 import session from 'express-session'
 import {createClient} from "redis"
-
+import cors from 'cors';
+import cookieParser from 'cookie-parser'
 
 // Lấy đường dẫn của tệp hiện tại
 const __filename = fileURLToPath(import.meta.url);
@@ -19,15 +20,19 @@ dotenv.config();
 
 const port = process.env.PORT;
 
-// Initialize client.
 let redisClient = createClient()
 redisClient.connect().catch(console.error)
 
-// Initialize store.
 let redisStore = new RedisStore({
 client: redisClient,
 prefix: "myapp:",
 })
+
+app.use(cors({
+    origin: 'http://localhost:3000', 
+    optionsSuccessStatus: 200,
+    credentials: true 
+}));
 
 app.use(session({
     store: redisStore,
@@ -39,6 +44,7 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(cookieParser())
 configViewEngine(app);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

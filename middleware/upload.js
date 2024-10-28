@@ -2,6 +2,7 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
+
 // Thiết lập multer để lưu vào thư mục tạm thời
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -29,5 +30,8 @@ const isAuth = (req, res, next) => {
     res.redirect("/login")
   }
 }
+
+
+
 
 export default {upload , isAuth};

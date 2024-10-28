@@ -35,6 +35,11 @@ const initWebRoute = (app) => {
     router.post('/login', user.getAdmin)
     router.get('/logout', user.logout);
 
+    // API
+    router.get('/product', products.getAPIAllProduct)
+    router.post('/register', user.insertAdmin)
+    router.post('/APIlogin', user.loginUser)
+
     return app.use('/', router)
 }
 export default initWebRoute
