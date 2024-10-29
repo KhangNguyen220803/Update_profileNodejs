@@ -71,7 +71,7 @@ const loginUser = async (req, res) => {
       if (!isPasswordMatch) {
         return res.status(401).json({ message: 'Mật khẩu không đúng' });
       }
-      
+
       const payload = {
         username: acc.username,
         role: acc.role,
@@ -79,7 +79,8 @@ const loginUser = async (req, res) => {
   
       const token = JWTAction.createJWT(payload);
       console.log(token);
-      res.cookie("jwt", token, { path: "/", httpOnly: false, secure: false, sameSite: 'Strict' });
+      res.cookie("jwt", token, { path: "/", httpOnly: false, secure: false, sameSite: 'Lax' });
+      
       
       // If password matches, return success message
       return res.status(200).json({ message: 'Đăng nhập thành công', token, user: acc });
@@ -89,4 +90,11 @@ const loginUser = async (req, res) => {
     }
   };
 
-export default { loginAdmin, getAdmin, logout, insertAdmin, loginUser};
+  const logoutAPI = (req, res) => {
+    
+      res.clearCookie('jwt');
+      res.status(200).json({ message: 'Đăng xuất thành công'})
+    
+};
+
+export default { loginAdmin, getAdmin, logout, insertAdmin, loginUser, logoutAPI};

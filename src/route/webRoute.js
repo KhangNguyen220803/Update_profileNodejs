@@ -3,9 +3,8 @@ import getHomePage from '../controllers/HomeController.js';
 import products from '../controllers/productsController.js';
 import user from '../controllers/userControllder.js'
 import mdw from "../../middleware/upload.js";
-// import aboutPage from "../controllers/AboutController.js";
-// import getContact from "../controllers/ContactController.js";
-// import userController from '../controllers/userController.js';
+import auth from "../../middleware/jwt.js";
+
 const router = express.Router()
 const initWebRoute = (app) => {
     router.get('/', mdw.isAuth, getHomePage)
@@ -37,6 +36,7 @@ const initWebRoute = (app) => {
 
     // API
     router.get('/product', products.getAPIAllProduct)
+    router.get('/APIlogout', auth.authMiddleware, user.logoutAPI)
     router.post('/register', user.insertAdmin)
     router.post('/APIlogin', user.loginUser)
 

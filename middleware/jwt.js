@@ -7,7 +7,7 @@ const createJWT = (payload) => {
   
     try {
   
-        token = jwt.sign(payload, key, { expiresIn: '1h' });
+        token = jwt.sign(payload, key, { expiresIn: '2h' });
     } catch (err) {
         console.error('Lỗi tạo JWT:', err);
     }
@@ -29,7 +29,7 @@ const createJWT = (payload) => {
   };
   
   const authMiddleware = (req, res, next) => {
-    const token = req.cookies.jwt; // Lấy token từ cookie
+    const token = req.cookies.jwt; 
     if (!token) return res.status(401).json({ message: 'Không tìm thấy token' });
   
     try {
