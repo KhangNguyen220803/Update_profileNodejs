@@ -38,6 +38,9 @@ const initWebRoute = (app) => {
     router.get('/product', products.getAPIAllProduct)
     router.get('/APIlogout', auth.authMiddleware, user.logoutAPI)
     router.post('/register', user.insertAdmin)
+    router.post('/profile', user.insertProfile)
+    router.get('/profile/:username', user.getProfile)
+    router.put('/profile/:username', user.updateProfile)
     router.post('/APIlogin', user.loginUser)
 
     return app.use('/', router)

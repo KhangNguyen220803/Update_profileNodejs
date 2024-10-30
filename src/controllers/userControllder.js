@@ -45,6 +45,39 @@ const insertAdmin = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+const getProfile = async (req, res) => {
+    let username = req.params.username;
+    
+    const acc = await userModel.getProfile(username);
+    if(!acc){
+        return res.status(400).json({ message: 'Chưa có thông tin' });
+    }
+    res.status(200).json({ message: 'Created successfully', profile: acc });
+}
+const insertProfile = async (req, res) => {
+    try {
+        const { username, fullname, address } = req.body;
+
+        await userModel.insertProfile(username, fullname, address);
+
+        res.status(200).json({ message: 'Created successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+const updateProfile = async (req, res) => {
+    try {
+        let username = req.params.username;
+
+        const {fullname, address } = req.body;
+        console.log(username, fullname, address);
+        await userModel.updateProfile(username, fullname, address);
+
+        res.status(200).json({ message: 'Created successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
 const logout = (req, res) => {
     req.session.destroy(err => {
         if (err) {
@@ -97,4 +130,4 @@ const loginUser = async (req, res) => {
     
 };
 
-export default { loginAdmin, getAdmin, logout, insertAdmin, loginUser, logoutAPI};
+export default { loginAdmin, getAdmin, updateProfile, logout, insertAdmin, insertProfile, loginUser, logoutAPI, getProfile};
