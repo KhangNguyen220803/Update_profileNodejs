@@ -5,6 +5,7 @@
             <tr>
                 <th scope="col">Mã sản phẩm</th>
                 <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Giá sản phẩm</th>
                 <th scope="col">Thông tin chi tiết</th>
                 <th scope="col">Số lượng sản phẩm</th>
                 <th scope="col">Hình ảnh</th>
@@ -16,6 +17,7 @@
             <tr>
                 <th scope="row"><%= data.rows.masp %></th>
                 <td><%= data.rows.tensp %></td>
+                <td><%= data.rows.gia %> đ</td>
                 <td><%= data.rows.thongtinchitiet %></td>
                 <td><%= data.rows.soluongsp %></td>
                 <td><img src="/uploads/<%= data.rows.hinhanh %>" alt="<%= data.rows.hinhanh %>"></td>

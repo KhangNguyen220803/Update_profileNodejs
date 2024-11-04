@@ -79,13 +79,13 @@ const getAllProduct = async (req, res) => {
 const getAPIAllProduct = async (req, res) => {
     let Product = await productsModel.getAllProduct();
 
-    return res.status(200).json({ product: Product});
+    return res.status(200).json({ products: Product});
 }
 const insertProducts = async (req, res) => {
-    let { masp, tensp, thongtinchitiet, soluongsp, maloai, mansx } = req.body;
+    let { masp, tensp, thongtinchitiet, soluongsp, gia, maloai, mansx } = req.body;
     let hinhanh = req.file ? req.file.filename : null;
 
-    await productsModel.insertProducts(masp, tensp, thongtinchitiet, soluongsp, hinhanh, maloai, mansx)
+    await productsModel.insertProducts(masp, tensp, thongtinchitiet, soluongsp, gia, hinhanh, maloai, mansx)
     res.redirect(req.get('referer'));
 }
 const detailProduct = async (req, res) => {

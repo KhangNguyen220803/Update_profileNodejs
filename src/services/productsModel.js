@@ -41,11 +41,12 @@ const deleteNSX = async(mansx) => {
 
 // SP
 const getAllProduct = async () => {
-    const [rows, fields] = await connectDB.execute('SELECT * FROM `sanpham`')
+    const [rows, fields] = await connectDB.execute('SELECT * FROM `sanpham`, `loaisanpham`, `nhasanxuat` WHERE `sanpham`.maloai = `loaisanpham`.maloai AND `sanpham`.mansx = `nhasanxuat`.mansx')
     return rows
 }
-const insertProducts = async (masp, tensp, thongtinchitiet, soluongsp, hinhanh, maloai, mansx) => {
-    await connectDB.execute("INSERT INTO `sanpham` VALUES (?, ?, ?, ?, ?, ?, ?)", [masp, tensp, thongtinchitiet, soluongsp, hinhanh, maloai, mansx]);
+
+const insertProducts = async (masp, tensp, thongtinchitiet, soluongsp, gia, hinhanh, maloai, mansx) => {
+    await connectDB.execute("INSERT INTO `sanpham` VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [masp, tensp, thongtinchitiet, soluongsp, gia, hinhanh, maloai, mansx]);
 }
 const detailProduct= async (id) => {
     const [rows, fields] = await connectDB.execute('SELECT * FROM `sanpham` WHERE masp=?', [id])
