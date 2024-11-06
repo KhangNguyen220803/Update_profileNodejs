@@ -34,6 +34,8 @@ const initWebRoute = (app) => {
     router.post('/login', user.getAdmin)
     router.get('/logout', user.logout);
 
+    router.get('/listCart', mdw.isAuth, products.getAllCart)
+
     // API
     router.get('/product', products.getAPIAllProduct)
     router.get('/APIlogout', auth.authMiddleware, user.logoutAPI)
@@ -42,6 +44,8 @@ const initWebRoute = (app) => {
     router.get('/profile/:username', user.getProfile)
     router.put('/profile/:username', user.updateProfile)
     router.post('/APIlogin', user.loginUser)
+    router.post('/cart', products.insertCart)
+    router.post('/detailCart', products.insertDetailCart)
 
     return app.use('/', router)
 }

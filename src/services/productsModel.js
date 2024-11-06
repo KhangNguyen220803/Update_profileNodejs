@@ -70,4 +70,17 @@ const deleteProduct = async(masp) => {
 }
 // SP
 
-export default {getAllProductType, insertTProducts, editProductType, detailProductType, deleteType, insertNSX, editNSX, getAllNSX, detailNSX, deleteNSX, insertProducts, getAllProduct, editProduct, detailProduct, deleteProduct}
+const getAllCart = async () => {
+    const [rows, fields] = await connectDB.execute('SELECT * FROM `donhang`, `chitietdathang`, `sanpham` WHERE `donhang`.madh = `chitietdathang`.madh AND `chitietdathang`.masp = `sanpham`.masp GROUP BY donhang.madh')
+    return rows
+}
+
+// CART
+const insertCart = async (madh, username, ngaydat, trangthai, tonggia, diachinhanhang) => {
+    await connectDB.execute("INSERT INTO `donhang` VALUES (?, ?, ?, ?, ?, ?)", [madh, username, ngaydat, trangthai, tonggia, diachinhanhang]);
+}
+const insertDetailCart = async (madh, masp, gia, soluong) => {
+    await connectDB.execute("INSERT INTO `chitietdathang` VALUES (?, ?, ?, ?)", [madh, masp, gia, soluong]);
+}
+
+export default {getAllProductType, getAllCart, insertTProducts, insertCart, insertDetailCart, editProductType, detailProductType, deleteType, insertNSX, editNSX, getAllNSX, detailNSX, deleteNSX, insertProducts, getAllProduct, editProduct, detailProduct, deleteProduct}

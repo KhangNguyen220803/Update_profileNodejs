@@ -20,13 +20,13 @@ dotenv.config();
 
 const port = process.env.PORT;
 
-// let redisClient = createClient()
-// redisClient.connect().catch(console.error)
+let redisClient = createClient()
+redisClient.connect().catch(console.error)
 
-// let redisStore = new RedisStore({
-// client: redisClient,
-// prefix: "myapp:",
-// })
+let redisStore = new RedisStore({
+client: redisClient,
+prefix: "myapp:",
+})
 
 app.use(cors({
     origin: 'http://localhost:3000', 
@@ -34,13 +34,13 @@ app.use(cors({
     credentials: true 
 }));
 
-// app.use(session({
-//     store: redisStore,
-//     secret: 'cat',
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { secure: false }
-// }))
+app.use(session({
+    store: redisStore,
+    secret: 'cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())

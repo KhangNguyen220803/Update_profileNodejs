@@ -1,0 +1,55 @@
+<!-- bảng đơn hàng -->
+<div id="table_sp" style="display: flex; justify-content: center; margin-top: 20px;">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Mã đơn hàng</th>
+                <th scope="col">Username</th>
+                <th scope="col">Ngày đặt</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Tổng giá</th>
+                <th style="text-align: center;" scope="col">Xem</th>
+                <th style="text-align: center;" scope="col">Sửa</th>
+                <th style="text-align: center;" scope="col">Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(data.listCarts){ %>
+                <% for(let i=0; i < data.listCarts.length; i++) { %>
+                    <tr>
+                        <th scope="row">
+                            <%= data.listCarts[i].madh %>
+                        </th>
+                        <td>
+                            <%= data.listCarts[i].username %>
+                        </td>
+                        <td>
+                            <%= data.listCarts[i].ngaydat %>
+                        </td>
+                        <td>
+                            <%= data.listCarts[i].trangthai %>
+                        </td>
+                        <td>
+                            <%= data.listCarts[i].tonggia %> đ
+                        </td>
+                        <td style="text-align: center;"><a href="#"
+                                class="btn btn-light">Xem</a></td>
+                        <td style="text-align: center;"><a href="#
+                                class="btn btn-primary">Sửa</a></td>
+                        <td style="text-align: center;"><button class="btn btn-danger"
+                                ">Xóa</button></td>
+                    </tr>
+                    <% } %>
+                        <% } %>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function deleteProduct(id) {
+        fetch(`/deleteProduct/${id}`, {
+            method: 'DELETE'
+        })
+        window.location.href = '/listProduct';
+    }
+</script>
