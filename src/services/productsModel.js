@@ -71,7 +71,11 @@ const deleteProduct = async(masp) => {
 // SP
 
 const getAllCart = async () => {
-    const [rows, fields] = await connectDB.execute('SELECT * FROM `donhang`, `chitietdathang`, `sanpham` WHERE `donhang`.madh = `chitietdathang`.madh AND `chitietdathang`.masp = `sanpham`.masp GROUP BY donhang.madh')
+    const [rows, fields] = await connectDB.execute('SELECT * FROM `donhang`')
+    return rows
+}
+const getAllDetailCart = async (madh) => {
+    const [rows, fields] = await connectDB.execute('SELECT * FROM `donhang` JOIN `chitietdathang` ON `donhang`.madh = `chitietdathang`.madh JOIN `sanpham` ON `chitietdathang`.masp = `sanpham`.masp JOIN `admin` ON `donhang`.username = `admin`.username JOIN `hoso` ON `admin`.username = `hoso`.username WHERE `donhang`.madh = ?', [madh])
     return rows
 }
 
@@ -82,5 +86,25 @@ const insertCart = async (madh, username, ngaydat, trangthai, tonggia, diachinha
 const insertDetailCart = async (madh, masp, gia, soluong) => {
     await connectDB.execute("INSERT INTO `chitietdathang` VALUES (?, ?, ?, ?)", [madh, masp, gia, soluong]);
 }
+const updateCart = async (trangthai, madh) => {
+    await connectDB.execute('UPDATE `donhang` SET trangthai=? WHERE madh =?',[trangthai, madh])
+}
+const getCartAPI = async (username) => {
+    const [rows, fields] = await connectDB.execute('SELECT * FROM `donhang` WHERE username = ?', [username])
+    return rows
+}
+const getAllAPICart = async (madh) => {
+    const [rows, fields] = await connectDB.execute(
+        `
+        SELECT * 
+        FROM donhang 
+        JOIN chitietdathang ON donhang.madh = chitietdathang.madh
+        JOIN sanpham ON chitietdathang.masp = sanpham.masp
+        WHERE donhang.madh = ?
+        `,
+        [madh]
+    );
+    return rows;
+}
 
-export default {getAllProductType, getAllCart, insertTProducts, insertCart, insertDetailCart, editProductType, detailProductType, deleteType, insertNSX, editNSX, getAllNSX, detailNSX, deleteNSX, insertProducts, getAllProduct, editProduct, detailProduct, deleteProduct}
+export default {getAllProductType, getCartAPI, getAllDetailCart, updateCart, getAllCart, getAllAPICart, insertTProducts, insertCart, insertDetailCart, editProductType, detailProductType, deleteType, insertNSX, editNSX, getAllNSX, detailNSX, deleteNSX, insertProducts, getAllProduct, editProduct, detailProduct, deleteProduct}

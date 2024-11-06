@@ -113,11 +113,45 @@ const deleteProduct = async (req, res) => {
     let id = req.params.id
     await productsModel.deleteProduct(id)
 }
+
 // CartAdmin
 const getAllCart = async (req, res) => {
     let listCart = await productsModel.getAllCart();
     res.render('home', { data: { title: 'cart', page: 'cart', listCarts: listCart} });
 }
+const getAllDetailCart = async (req, res) => {
+    let id = req.params.id
+    let detailCart = await productsModel.getAllDetailCart(id)
+    console.log(detailCart)
+    res.render('home', { data: { title: 'Detail Cart', page: 'detailCart', detailCarts: detailCart } })
+}
+const updateCart = async (req, res) => {
+    const { trangthai, madh } = req.body;
+
+    try {
+        // Gọi hàm cập nhật trong productsModel
+        await productsModel.updateCart(trangthai, madh);
+
+        // Gửi phản hồi về client
+        res.json({ success: true, message: 'Cập nhật trạng thái thành công' });
+    } catch (error) {
+        console.error('Error updating cart:', error);
+        
+        // Gửi phản hồi lỗi về client
+        res.status(500).json({ success: false, message: 'Cập nhật trạng thái thất bại' });
+    }
+};
+const getAllAPICart = async (req, res) => {
+    const username = req.params.username;
+    let listOrder = await productsModel.getAllAPICart(username);
+    return res.status(200).json({ order: listOrder });
+}
+const getCartAPI = async (req, res) => {
+    const madh = req.params.madh;
+    let listCart = await productsModel.getCartAPI(madh);
+    return res.status(200).json({ cartAPI: listCart });
+}
+
 // cart
 const insertCart = async (req, res) => {
     try {
@@ -160,4 +194,4 @@ const insertDetailCart = async (req, res) => {
     }
 };
 
-export default { getAllProductType, getAllCart, insertCart, insertDetailCart, getAPIAllProduct, insertTProducts, editProductType, updateTProduct, deleteTProduct, detailProductType, insertNSX, editNSX, updateNSX, getAllNSX, detailNSX, deleteNSX, insertProducts, getAllProduct, updateProduct, editProduct, detailProduct, deleteProduct }
+export default { getAllProductType, getCartAPI, updateCart, getAllAPICart, getAllCart, insertCart, insertDetailCart, getAllDetailCart, getAPIAllProduct, insertTProducts, editProductType, updateTProduct, deleteTProduct, detailProductType, insertNSX, editNSX, updateNSX, getAllNSX, detailNSX, deleteNSX, insertProducts, getAllProduct, updateProduct, editProduct, detailProduct, deleteProduct }

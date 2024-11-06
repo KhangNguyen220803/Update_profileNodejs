@@ -35,6 +35,8 @@ const initWebRoute = (app) => {
     router.get('/logout', user.logout);
 
     router.get('/listCart', mdw.isAuth, products.getAllCart)
+    router.get('/detailCart/:id', mdw.isAuth, products.getAllDetailCart)
+    router.post('/listCart', mdw.isAuth, products.updateCart)
 
     // API
     router.get('/product', products.getAPIAllProduct)
@@ -46,6 +48,9 @@ const initWebRoute = (app) => {
     router.post('/APIlogin', user.loginUser)
     router.post('/cart', products.insertCart)
     router.post('/detailCart', products.insertDetailCart)
+    router.get('/orders/:username', products.getAllAPICart)
+    router.get('/orderCart/:madh', products.getCartAPI)
+
 
     return app.use('/', router)
 }

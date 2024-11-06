@@ -1,0 +1,41 @@
+<!-- bảng sản phẩm -->
+<div id="table_sp" style="display: flex; flex-direction: column;justify-content: center; margin-top: 20px;">
+    <div style="margin-bottom: 20px;">
+        <h5 style="text-align: center;">Chi tiết đơn hàng</h5>
+        <h6>Mã đơn hàng: <%= data.detailCarts[0].madh %></h6>
+        <h6>Tên khách hàng: <%= data.detailCarts[0].fullname %>
+        </h6>
+        <h6>Ngày đặt: <%= data.detailCarts[0].ngaydat %>
+        </h6>
+        <h6>Trạng thái: <%= data.detailCarts[0].trangthai %>
+        </h6>
+    </div>
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Giá sản phẩm</th>
+                <th scope="col">Số lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <% if(data.detailCarts){ %>
+                <% for(let i=0; i < data.detailCarts.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%= data.detailCarts[i].tensp %>
+                        </td>
+                        <td>
+                            <%= data.detailCarts[i].gia %> đ
+                        </td>
+                        <td>
+                            <%= data.detailCarts[i].soluong %>
+                        </td>
+
+                    </tr>
+                    <% } %>
+                        <% } %>
+        </tbody>
+    </table>
+</div>

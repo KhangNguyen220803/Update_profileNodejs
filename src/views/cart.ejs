@@ -1,4 +1,25 @@
-<!-- bảng đơn hàng -->
+<div id="updateForm" style="display: none; position: fixed; width: 200px;top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ddd; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+    <form id="statusUpdateForm">
+        <input type="hidden" name="madh" id="madh">
+        <label for="trangthai">Trạng thái đơn hàng:</label>
+        <br>
+        <select style="width: 100%;" name="trangthai" id="trangthai">
+            <option value="Chờ xác nhận">Chờ xác nhận</option>
+            <option value="Đã xác nhận">Đã xác nhận</option>
+            <option value="Đang giao">Đang giao</option>
+            <option value="Đã giao">Đã giao</option>
+        </select>
+        <br><br>
+        <div style="display: flex; justify-content: space-around;">
+        <button type="button" class="btn btn-secondary" onclick="closeUpdateForm()">Đóng</button>
+        <button type="button" class="btn btn-primary" onclick="submitUpdateForm()">Cập nhật</button>
+
+        </div>
+        
+    </form>
+</div>
+
+<!-- Bảng đơn hàng -->
 <div id="table_sp" style="display: flex; justify-content: center; margin-top: 20px;">
     <table class="table table-sm">
         <thead>
@@ -8,48 +29,66 @@
                 <th scope="col">Ngày đặt</th>
                 <th scope="col">Trạng thái</th>
                 <th scope="col">Tổng giá</th>
+                <th scope="col">Địa chỉ</th>
                 <th style="text-align: center;" scope="col">Xem</th>
-                <th style="text-align: center;" scope="col">Sửa</th>
-                <th style="text-align: center;" scope="col">Xóa</th>
+                <th style="text-align: center;" scope="col">Cập nhật</th>
             </tr>
         </thead>
         <tbody>
             <% if(data.listCarts){ %>
-                <% for(let i=0; i < data.listCarts.length; i++) { %>
+                <% for(let i = 0; i < data.listCarts.length; i++) { %>
                     <tr>
-                        <th scope="row">
-                            <%= data.listCarts[i].madh %>
-                        </th>
-                        <td>
-                            <%= data.listCarts[i].username %>
+                        <th scope="row"><%= data.listCarts[i].madh %></th>
+                        <td><%= data.listCarts[i].username %></td>
+                        <td><%= data.listCarts[i].ngaydat %></td>
+                        <td><%= data.listCarts[i].trangthai %></td>
+                        <td><%= data.listCarts[i].tonggia %> đ</td>
+                        <td><%= data.listCarts[i].diachinhanhang %></td>
+                        <td style="text-align: center;"><a href="/detailCart/<%= data.listCarts[i].madh %>" class="btn btn-light">Xem</a></td>
+                        <td style="text-align: center;">
+                            <button class="btn btn-primary" onclick="openUpdateForm('<%= data.listCarts[i].madh %>')">Cập nhật</button>
                         </td>
-                        <td>
-                            <%= data.listCarts[i].ngaydat %>
-                        </td>
-                        <td>
-                            <%= data.listCarts[i].trangthai %>
-                        </td>
-                        <td>
-                            <%= data.listCarts[i].tonggia %> đ
-                        </td>
-                        <td style="text-align: center;"><a href="#"
-                                class="btn btn-light">Xem</a></td>
-                        <td style="text-align: center;"><a href="#
-                                class="btn btn-primary">Sửa</a></td>
-                        <td style="text-align: center;"><button class="btn btn-danger"
-                                ">Xóa</button></td>
                     </tr>
-                    <% } %>
-                        <% } %>
+                <% } %>
+            <% } %>
         </tbody>
     </table>
 </div>
 
 <script>
-    function deleteProduct(id) {
-        fetch(`/deleteProduct/${id}`, {
-            method: 'DELETE'
+    function openUpdateForm(madh) {
+        document.getElementById('madh').value = madh;
+        document.getElementById('updateForm').style.display = 'block';
+    }
+
+    function closeUpdateForm() {
+        document.getElementById('updateForm').style.display = 'none';
+    }
+
+    function submitUpdateForm() {
+        const madh = document.getElementById('madh').value;
+        const trangthai = document.getElementById('trangthai').value;
+
+        fetch('/listCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ madh, trangthai })
         })
-        window.location.href = '/listProduct';
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Cập nhật trạng thái thành công!');
+                closeUpdateForm();
+                location.reload(); 
+            } else {
+                alert('Cập nhật thất bại!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Có lỗi xảy ra!');
+        });
     }
 </script>
