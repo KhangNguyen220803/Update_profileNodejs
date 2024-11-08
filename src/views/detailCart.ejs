@@ -5,8 +5,8 @@
         <h6>Mã đơn hàng: <%= data.detailCarts[0].madh %></h6>
         <h6>Tên khách hàng: <%= data.detailCarts[0].fullname %>
         </h6>
-        <h6>Ngày đặt: <%= data.detailCarts[0].ngaydat %>
-        </h6>
+        <h6>Ngày đặt: <%= new Date(data.detailCarts[0].ngaydat).toLocaleDateString('vi-VN') %> 
+            <%= new Date(data.detailCarts[0].ngaydat).toLocaleTimeString('vi-VN') %></h6>
         <h6>Trạng thái: <%= data.detailCarts[0].trangthai %>
         </h6>
     </div>

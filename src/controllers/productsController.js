@@ -130,17 +130,52 @@ const updateCart = async (req, res) => {
 
     try {
         // Gọi hàm cập nhật trong productsModel
-        await productsModel.updateCart(trangthai, madh);
+        const listOrder = await productsModel.getAllAPICart(madh);
+        console.log(listOrder);
+        
+        if (!Array.isArray(listOrder) || listOrder.length === 0) {
+            return res.status(400).send({ message: "Không hợp lệ." });
+        }
+        if (trangthai === 'Đã hủy') {
+            await productsModel.updateCart(trangthai, madh);
+            return res.status(400).send({ message: "Đơn hàng đã bị hủy." });
+        }
+        if(trangthai === 'Đang giao') {
+            await productsModel.updateCart(trangthai, madh);
+        }
+        if(trangthai === 'Đã giao') {
+            await productsModel.updateCart(trangthai, madh);
+        }
+        if (trangthai === 'Đã xác nhận') {
+            await Promise.all(
+                listOrder.map(async (order) => { // Thêm async tại đây
+                    const productQuatity = await productsModel.detailProduct(order.masp); // Thêm await tại đây
+                    if (productQuatity.soluongsp < order.soluong) {
+                        throw new Error("Số lượng sản phẩm không đủ."); // Sử dụng lỗi để thoát Promise.all
+                    } else {
+                        await productsModel.updateQuantity(order.masp); // Thêm await tại đây
+                    }
+                })
+            );
+            await productsModel.updateCart(trangthai, madh);
 
+        }
+        
         // Gửi phản hồi về client
         res.json({ success: true, message: 'Cập nhật trạng thái thành công' });
     } catch (error) {
         console.error('Error updating cart:', error);
         
-        // Gửi phản hồi lỗi về client
+        // Kiểm tra lỗi do số lượng sản phẩm không đủ
+        if (error.message === "Số lượng sản phẩm không đủ.") {
+            return res.status(400).send({ message: error.message });
+        }
+
+        // Gửi phản hồi lỗi về client cho các lỗi khác
         res.status(500).json({ success: false, message: 'Cập nhật trạng thái thất bại' });
     }
 };
+
 const getAllAPICart = async (req, res) => {
     const username = req.params.username;
     let listOrder = await productsModel.getAllAPICart(username);

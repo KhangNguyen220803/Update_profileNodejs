@@ -106,5 +106,8 @@ const getAllAPICart = async (madh) => {
     );
     return rows;
 }
+const updateQuantity = async (masp) => {
+    await connectDB.execute('UPDATE sanpham,chitietdathang SET soluongsp=soluongsp-soluong WHERE sanpham.masp=chitietdathang.masp AND chitietdathang.masp=?', [masp])
+}
 
-export default {getAllProductType, getCartAPI, getAllDetailCart, updateCart, getAllCart, getAllAPICart, insertTProducts, insertCart, insertDetailCart, editProductType, detailProductType, deleteType, insertNSX, editNSX, getAllNSX, detailNSX, deleteNSX, insertProducts, getAllProduct, editProduct, detailProduct, deleteProduct}
+export default {getAllProductType, updateQuantity, getCartAPI, getAllDetailCart, updateCart, getAllCart, getAllAPICart, insertTProducts, insertCart, insertDetailCart, editProductType, detailProductType, deleteType, insertNSX, editNSX, getAllNSX, detailNSX, deleteNSX, insertProducts, getAllProduct, editProduct, detailProduct, deleteProduct}

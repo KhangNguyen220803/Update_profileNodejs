@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2024 at 07:03 PM
+-- Generation Time: Nov 08, 2024 at 06:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -91,9 +91,9 @@ CREATE TABLE `donhang` (
 --
 
 INSERT INTO `donhang` (`madh`, `username`, `ngaydat`, `trangthai`, `tonggia`, `diachinhanhang`) VALUES
-('OD17308806567891', '123khang', '2024-11-06 15:10:00', 'Đang giao', 349000, 'Can Tho'),
-('OD17308816647665', 'khanh21', '2024-11-06 15:27:00', 'Chờ xác nhận', 1197000, 'Kien Giang'),
-('OD17309152357884', '123khang', '2024-11-07 00:47:00', 'Chờ xác nhận', 706000, 'An Giang');
+('OD17308806567891', '123khang', '2024-11-06 15:10:00', 'Đã xác nhận', 349000, 'Can Tho'),
+('OD17308816647665', 'khanh21', '2024-11-06 15:27:00', 'Đã xác nhận', 1197000, 'Kien Giang'),
+('OD17309152357884', '123khang', '2024-11-07 00:47:00', 'Đã xác nhận', 706000, 'An Giang');
 
 -- --------------------------------------------------------
 
@@ -182,10 +182,10 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`masp`, `tensp`, `thongtinchitiet`, `soluongsp`, `giasp`, `hinhanh`, `maloai`, `mansx`) VALUES
-('D-374', 'Dây thừng', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 25, 17000, 'daythung.jpg', 'DD-01', 'VLD-265'),
-('G-595', 'Gạch 4 lỗ', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 40, 5000, 'gach.jpg', 'GA-01', 'VLG-125'),
-('O-215', 'Ống nước', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 10, 82000, 'ong.jpg', 'KL-01', 'VLC-125'),
-('S-215', 'Sắt', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 20, 22000, 'sat.jpg', 'KL-01', 'VLC-125');
+('D-374', 'Dây thừng', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 24, 17000, 'daythung.jpg', 'DD-01', 'VLD-265'),
+('G-595', 'Gạch 4 lỗ', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 108, 5000, 'gach.jpg', 'GA-01', 'VLG-125'),
+('O-215', 'Ống nước', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 54, 82000, 'ong.jpg', 'KL-01', 'VLC-125'),
+('S-215', 'Sắt', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 76, 22000, 'sat.jpg', 'KL-01', 'VLC-125');
 
 --
 -- Indexes for dumped tables
