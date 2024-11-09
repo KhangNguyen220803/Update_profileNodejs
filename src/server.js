@@ -10,6 +10,7 @@ import session from 'express-session'
 import {createClient} from "redis"
 import cors from 'cors';
 import cookieParser from 'cookie-parser'
+import {sequelize, profile, user, cart, category, detailOrder, producer, product} from './models/index.js';
 
 // Lấy đường dẫn của tệp hiện tại
 const __filename = fileURLToPath(import.meta.url);

@@ -42,7 +42,10 @@
                     <tr>
                         <th scope="row"><%= data.listCarts[i].madh %></th>
                         <td><%= data.listCarts[i].username %></td>
-                        <td><%= data.listCarts[i].ngaydat %></td>
+                        <td>
+                            <%= new Date(data.listCarts[0].ngaydat).toLocaleDateString('vi-VN') %>
+                            <%= new Date(data.listCarts[0].ngaydat).toLocaleTimeString('vi-VN') %>
+                        </td>
                         <td><%= data.listCarts[i].trangthai %></td>
                         <td><%= data.listCarts[i].tonggia %> đ</td>
                         <td><%= data.listCarts[i].diachinhanhang %></td>

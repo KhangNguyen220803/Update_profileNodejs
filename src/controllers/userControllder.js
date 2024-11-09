@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import userModel from '../services/userModel.js';
 import JWTAction from '../../middleware/jwt.js';
 import jwt from 'jsonwebtoken';
+import sequelize from '../configs/sequelize.js';
 
 const loginAdmin = async (req, res) => {
     res.render('login', { data: { title: 'Login' } });
@@ -129,5 +130,7 @@ const loginUser = async (req, res) => {
       res.status(200).json({ message: 'Đăng xuất thành công'})
     
 };
+
+
 
 export default { loginAdmin, getAdmin, updateProfile, logout, insertAdmin, insertProfile, loginUser, logoutAPI, getProfile};

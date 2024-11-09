@@ -82,10 +82,10 @@ const getAPIAllProduct = async (req, res) => {
     return res.status(200).json({ products: Product });
 }
 const insertProducts = async (req, res) => {
-    let { masp, tensp, thongtinchitiet, soluongsp, gia, maloai, mansx } = req.body;
+    let { masp, tensp, thongtinchitiet, soluongsp, giasp, maloai, mansx } = req.body;
     let hinhanh = req.file ? req.file.filename : null;
 
-    await productsModel.insertProducts(masp, tensp, thongtinchitiet, soluongsp, gia, hinhanh, maloai, mansx)
+    await productsModel.insertProducts(masp, tensp, thongtinchitiet, soluongsp, giasp, hinhanh, maloai, mansx)
     res.redirect(req.get('referer'));
 }
 const detailProduct = async (req, res) => {
@@ -102,10 +102,10 @@ const editProduct = async (req, res) => {
 }
 const updateProduct = async (req, res) => {
     let id = req.params.id;
-    let { tensp, thongtinchitiet, soluongsp, maloai, mansx } = req.body;
+    let { tensp, giasp, thongtinchitiet, soluongsp, maloai, mansx } = req.body;
     let hinhanh = req.file ? req.file.filename : null;
 
-    await productsModel.editProduct(id, tensp, thongtinchitiet, soluongsp, hinhanh, maloai, mansx);
+    await productsModel.editProduct(id, tensp, giasp, thongtinchitiet, soluongsp, hinhanh, maloai, mansx);
 
     res.redirect("/listProduct");
 }
@@ -130,7 +130,7 @@ const updateCart = async (req, res) => {
 
     try {
         // Gọi hàm cập nhật trong productsModel
-        const listOrder = await productsModel.getAllAPICart(madh);
+        const listOrder = await productsModel.getAllDetailCart(madh);
         console.log(listOrder);
         
         if (!Array.isArray(listOrder) || listOrder.length === 0) {
@@ -148,12 +148,12 @@ const updateCart = async (req, res) => {
         }
         if (trangthai === 'Đã xác nhận') {
             await Promise.all(
-                listOrder.map(async (order) => { // Thêm async tại đây
-                    const productQuatity = await productsModel.detailProduct(order.masp); // Thêm await tại đây
+                listOrder.map(async (order) => { 
+                    const productQuatity = await productsModel.detailProduct(order.masp); 
                     if (productQuatity.soluongsp < order.soluong) {
-                        throw new Error("Số lượng sản phẩm không đủ."); // Sử dụng lỗi để thoát Promise.all
+                        throw new Error("Số lượng sản phẩm không đủ."); 
                     } else {
-                        await productsModel.updateQuantity(order.masp); // Thêm await tại đây
+                        await productsModel.updateQuantity(order.masp, madh); 
                     }
                 })
             );
@@ -177,13 +177,13 @@ const updateCart = async (req, res) => {
 };
 
 const getAllAPICart = async (req, res) => {
-    const username = req.params.username;
-    let listOrder = await productsModel.getAllAPICart(username);
+    const madh = req.params.madh;
+    let listOrder = await productsModel.getAllDetailCart(madh);
     return res.status(200).json({ order: listOrder });
 }
 const getCartAPI = async (req, res) => {
-    const madh = req.params.madh;
-    let listCart = await productsModel.getCartAPI(madh);
+    const username = req.params.username;
+    let listCart = await productsModel.getCartAPI(username);
     return res.status(200).json({ cartAPI: listCart });
 }
 
@@ -229,4 +229,15 @@ const insertDetailCart = async (req, res) => {
     }
 };
 
-export default { getAllProductType, getCartAPI, updateCart, getAllAPICart, getAllCart, insertCart, insertDetailCart, getAllDetailCart, getAPIAllProduct, insertTProducts, editProductType, updateTProduct, deleteTProduct, detailProductType, insertNSX, editNSX, updateNSX, getAllNSX, detailNSX, deleteNSX, insertProducts, getAllProduct, updateProduct, editProduct, detailProduct, deleteProduct }
+export default { 
+    getAllProductType, getCartAPI, updateCart, 
+    getAllAPICart, getAllCart, insertCart, 
+    insertDetailCart, getAllDetailCart, 
+    getAPIAllProduct, insertTProducts, 
+    editProductType, updateTProduct, 
+    deleteTProduct, detailProductType, 
+    insertNSX, editNSX, updateNSX, getAllNSX, 
+    detailNSX, deleteNSX, insertProducts, 
+    getAllProduct, updateProduct, editProduct, 
+    detailProduct, deleteProduct 
+}

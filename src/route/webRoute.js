@@ -38,7 +38,7 @@ const initWebRoute = (app) => {
     router.get('/detailCart/:id', mdw.isAuth, products.getAllDetailCart)
     router.post('/listCart', mdw.isAuth, products.updateCart)
 
-    // API
+     // API
     router.get('/product', products.getAPIAllProduct)
     router.get('/APIlogout', auth.authMiddleware, user.logoutAPI)
     router.post('/register', user.insertAdmin)
@@ -48,8 +48,8 @@ const initWebRoute = (app) => {
     router.post('/APIlogin', user.loginUser)
     router.post('/cart', products.insertCart)
     router.post('/detailCart', products.insertDetailCart)
-    router.get('/orders/:username', products.getAllAPICart)
-    router.get('/orderCart/:madh', products.getCartAPI)
+    router.get('/orders/:madh', products.getAllAPICart)
+    router.get('/orderCart/:username', products.getCartAPI)
 
 
     return app.use('/', router)
