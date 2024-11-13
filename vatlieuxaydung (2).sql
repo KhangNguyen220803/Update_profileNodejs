@@ -42,6 +42,7 @@ INSERT INTO `admin` (`username`, `password`, `role`) VALUES
 ('khang', '$2b$10$plc2kVBoN8eXuD5fNnAu4OReN8ERwLC22ayxVPaMYPkN1KbRxawxO', 'admin'),
 ('khanh21', '$2b$10$QGWUjlN3ADQDfY/16SZ2ceEu0TLtS4Sy3Alkd9K7NXwFM77kRcliW', 'user');
 
+
 -- --------------------------------------------------------
 
 --

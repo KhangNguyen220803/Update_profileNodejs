@@ -1,0 +1,45 @@
+<!-- bảng nhà sản xuất -->
+<div id="table_nsx" style="display: flex; justify-content: center; margin-top: 20px;">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Username</th>
+                
+                <th style="text-align: center;" scope="col">Xem</th>
+                <th style="text-align: center;" scope="col">Sửa</th>
+                <th style="text-align: center;" scope="col">Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(data.rows){ %>
+                <% for(let i=0; i < data.rows.length; i++) { %>
+                    <tr>
+                        <th scope="row">
+                            <%= i+1 %>
+                        </th>
+                        <td>
+                            <%= data.rows[i].username %>
+                        </td>
+                    
+                        <td style="text-align: center;"><a href="/detailGuest/<%= data.rows[i].username %>"
+                                class="btn btn-light">Xem</a></td>
+                        <td style="text-align: center;"><a href="/editGuest/<%= data.rows[i].username %>"
+                                class="btn btn-primary">Sửa</a></td>
+                        <td style="text-align: center;"><button class="btn btn-danger"
+                                onclick="deleteguest('<%= data.rows[i].username %>')">Xóa</button></td>
+                    </tr>
+                    <% } %>
+                        <% } %>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function deleteguest(id) {
+        fetch(`/deleteguest/${id}`, {
+            method: 'DELETE'
+        })
+        window.location.href = '/listguest';
+    }
+</script>

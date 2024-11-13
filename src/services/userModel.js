@@ -32,6 +32,34 @@ import user from '../models/user.js';
 import profile from '../models/profile.js';
 
 const userModel = {
+
+  // guest
+  async getAllGuest(role) {
+    return await user.findAll({ where: { role } });
+  },
+
+
+  async detailGuest(username) {
+    return await user.findOne({
+      where: { username: username }
+    });
+  },
+
+
+
+  async editGuest(role, username) {
+    return await user.update({ role: role }, {
+      where: { username: username }
+    });
+  },
+
+  async deleteGuest(username) {
+    return await user.destroy({
+      where: { username: username }
+    });
+  },
+  // end guest
+
   async getAdmin(username) {
     return await user.findOne({ where: { username } });
   },

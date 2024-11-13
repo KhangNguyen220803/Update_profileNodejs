@@ -5,6 +5,45 @@ import JWTAction from '../../middleware/jwt.js';
 import jwt from 'jsonwebtoken';
 import sequelize from '../configs/sequelize.js';
 
+
+//Guest
+
+const getAllGuest = async (req, res) => {
+    let role = "user"
+    let getAllGuests = await userModel.getAllGuest(role);
+    
+    res.render('home', { data: { title: 'List Guests', page: 'ListGuest', rows: getAllGuests } });
+}
+
+const detailGuest = async (req, res) => {
+    let username = req.params.username
+    let detailGuest = await userModel.detailGuest(username)
+    res.render('home', { data: { title: 'detail Guest', page: 'detailGuest', rows: detailGuest } })
+}
+
+const editGuest = async (req, res) => {
+    let username = req.params.username
+    let dataGuest = await userModel.detailGuest(username)
+    res.render('home', { data: { title: 'Edit Guest', page: 'editGuest', rows: dataGuest, } })
+}
+
+const updateGuest = async (req, res) => {
+    let username = req.params.username
+    let { role  } = req.body;
+    await userModel.editGuest(role, username);
+
+    res.redirect("/");
+}
+
+const deleteGuest = async (req, res) => {
+    let username = req.params.username
+    await userModel.deleteGuest(username)
+}
+
+//end Guest
+
+
+
 const loginAdmin = async (req, res) => {
     res.render('login', { data: { title: 'Login' } });
 }
@@ -133,4 +172,4 @@ const loginUser = async (req, res) => {
 
 
 
-export default { loginAdmin, getAdmin, updateProfile, logout, insertAdmin, insertProfile, loginUser, logoutAPI, getProfile};
+export default {getAllGuest,detailGuest,editGuest,updateGuest, deleteGuest, loginAdmin, getAdmin, updateProfile, logout, insertAdmin, insertProfile, loginUser, logoutAPI, getProfile};

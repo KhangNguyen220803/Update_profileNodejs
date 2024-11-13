@@ -1,5 +1,8 @@
 import express from "express";
 import productsModel from "../services/productsModel.js"
+import userModel from "../services/userModel.js"
+
+
 
 // Loai
 const getAllProductType = async (req, res) => {
