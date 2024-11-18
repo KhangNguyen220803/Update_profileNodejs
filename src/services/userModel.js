@@ -40,15 +40,14 @@ const userModel = {
 
 
   async detailGuest(username) {
-    return await user.findOne({
+    return await profile.findOne({
       where: { username: username }
     });
   },
 
-
-
-  async editGuest(role, username) {
-    return await user.update({ role: role }, {
+ 
+  async editGuest(fullname, address, username) {
+    return await profile.update({ fullname: fullname, address: address }, {
       where: { username: username }
     });
   },

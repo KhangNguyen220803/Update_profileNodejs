@@ -1,4 +1,4 @@
-<!-- sản phẩm -->
+
 <div id="formSP"
     style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; margin-top: 10px;">
     <form class="border p-5 w-50 bg-white" style="height: 700px; position: relative; top: 20px" method="post"
@@ -13,9 +13,15 @@
             <p class="form-control"><%= data.rows.username %></p>
         </div>
         <div class="form-group">
-            <label>Quyền</label>
+            <label>Fullname</label>
             <input type="text" class="form-control"
-                placeholder="Quyền" name="role" value="<%= data.rows.role %>">
+                placeholder="Full Name" name="fullname" value="<%= data.rows.fullname %>">
+        </div>
+
+        <div class="form-group">
+            <label>Address</label>
+            <input type="text" class="form-control"
+                placeholder="Address" name="address" value="<%= data.rows.address %>">
         </div>
 
         <div style="display: flex; justify-content: center;">

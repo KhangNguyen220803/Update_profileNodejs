@@ -29,8 +29,8 @@ const editGuest = async (req, res) => {
 
 const updateGuest = async (req, res) => {
     let username = req.params.username
-    let { role  } = req.body;
-    await userModel.editGuest(role, username);
+    let { fullname, address  } = req.body;
+    await userModel.editGuest(fullname, address, username);
 
     res.redirect("/");
 }
