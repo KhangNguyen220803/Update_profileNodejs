@@ -20,10 +20,25 @@
                 <td><%= data.rows.giasp %> đ</td>
                 <td><%= data.rows.thongtinchitiet %></td>
                 <td><%= data.rows.soluongsp %></td>
-                <td><img src="/uploads/<%= data.rows.hinhanh %>" alt="<%= data.rows.hinhanh %>"></td>
+                <td><img style="width: 100px; height: 100px;" src="/uploads/<%= data.rows.hinhanh %>" alt="<%= data.rows.hinhanh %>"></td>
                 <td><%= data.rows.maloai %></td>
                 <td><%= data.rows.mansx %></td>
             </tr>
         </tbody>
     </table>
 </div>
+
+
+
+<style>
+    th, td {
+        text-align: center; 
+        vertical-align: middle !important; 
+    }
+
+  
+    img {
+        display: block;
+        margin: auto; 
+    }
+</style>
